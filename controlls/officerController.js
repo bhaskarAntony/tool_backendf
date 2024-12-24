@@ -64,3 +64,21 @@ exports.getOfficerById = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+exports.deleteOfficer = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Check if weapon exists
+        const officer = await Officer.findById(id);
+        if (!weaofficerpon) {
+            return res.status(404).json({ error: 'officer not found.' });
+        }
+
+        // Delete weapon
+        await officer.findByIdAndDelete(id);
+        res.status(200).json({ message: 'officer deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
