@@ -26,5 +26,5 @@ app.use("/api/maintenance", maintenanceRoutes);
 app.use("/api/items", AmmunitionRoutes);
 
 app.listen(PORT, ()=>{
-    console.log('backend  running at http;//localhost:4000');
+    console.log('backend  running at http://localhost:4000');
 })

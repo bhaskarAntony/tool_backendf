@@ -22,6 +22,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: { 
+        type: String,
+         enum: ['admin', 'super_admin', 'normal'],
+        required: true 
+    }
 });
 
 UserSchema.pre('save', async function (next) {
@@ -37,4 +42,4 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('RSRUsers', UserSchema);
+module.exports = mongoose.model('armouryusers', UserSchema);

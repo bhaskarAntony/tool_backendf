@@ -21,13 +21,13 @@ exports.getAllOfficers = async (req, res) => {
 
 exports.updateOfficer = async (req, res) => {
     const { id } = req.params; // Get officer ID from request parameters
-    const { name, rank, metalNo, duty, status } = req.body; // Get the updated data from the request body
+    const { name, rank, metalNo, duty, status, kgidNo, role, remarks, auditDate, maintenanceDate, lastAuditedDate } = req.body; // Get the updated data from the request body
 
     try {
         // Find the officer by ID and update the details
         const officer = await Officer.findByIdAndUpdate(
             id,
-            { name, rank, metalNo, duty, status }, // Update fields
+            { name, rank, metalNo, duty, status, kgidNo, role, remarks, auditDate, maintenanceDate, lastAuditedDate }, // Update fields
             { new: true } // Return the updated document
         );
 
@@ -37,8 +37,8 @@ exports.updateOfficer = async (req, res) => {
 
         // Send the updated officer as the response
         res.json({
-            message:'updated',
-            data:officer
+            message: 'Updated successfully',
+            data: officer
         });
     } catch (error) {
         console.error(error);
@@ -69,15 +69,15 @@ exports.deleteOfficer = async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Check if weapon exists
+        // Check if officer exists
         const officer = await Officer.findById(id);
-        if (!weaofficerpon) {
-            return res.status(404).json({ error: 'officer not found.' });
+        if (!officer) {
+            return res.status(404).json({ error: 'Officer not found.' });
         }
 
-        // Delete weapon
-        await officer.findByIdAndDelete(id);
-        res.status(200).json({ message: 'officer deleted successfully' });
+        // Delete officer
+        await Officer.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Officer deleted successfully' });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

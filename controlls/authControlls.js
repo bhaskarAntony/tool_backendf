@@ -2,7 +2,7 @@ const User = require('../models/auth');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { adminname, adminemail, password, rank, phonenumber } = req.body;
+    const { adminname, adminemail, password, rank, phonenumber, role } = req.body;
 
     try {
         const user = new User({
@@ -10,7 +10,8 @@ const register = async (req, res) => {
            adminemail,
            phonenumber,
            password,
-           rank
+           rank,
+           role
         });
 
         await user.save();
@@ -49,6 +50,7 @@ const login = async (req, res) => {
                 name: user.adminname,
                 email: user.adminemail,
                 rank: user.rank,
+                role:user.role
             },
         });
     } catch (error) {
